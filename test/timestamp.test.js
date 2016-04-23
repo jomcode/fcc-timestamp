@@ -1,5 +1,4 @@
 const expect = require('chai').expect;
-const path = require('path');
 
 const timestamp = require('../index').timestamp;
 
@@ -10,7 +9,7 @@ describe('timestamp microservice', () => {
       expect(timestamp()).to.have.property('natural');
     });
 
-    it('`unix` and `natural` values are null if passed invalid date', () => {
+    it('`unix` and `natural` values are null if passed invalid parameter', () => {
       const foo = timestamp('not a valid date');
       expect(foo).to.have.property('unix', null);
       expect(foo).to.have.property('natural', null);
@@ -18,6 +17,16 @@ describe('timestamp microservice', () => {
       const bar = timestamp('');
       expect(bar).to.have.property('unix', null);
       expect(bar).to.have.property('natural', null);
+    });
+
+    it('returns proper `unix` and `natural` when passed valid unix timestamp', () => {
+      const foo = timestamp(1450137600);
+      expect(foo).to.have.property('unix', 1450137600);
+      expect(foo).to.have.property('natural', 'December 15, 2015');
+
+      const bar = timestamp(1461381650);
+      expect(bar).to.have.property('unix', 1461381650);
+      expect(bar).to.have.property('natural', 'April 23, 2016');
     });
   });
 });
