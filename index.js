@@ -32,7 +32,7 @@ const timestamp = (url) => {
 };
 
 const server = http.createServer((req, res) => {
-  const result = timestamp(req.url);
+  const result = timestamp(req.url.slice(1));
   return res.end(JSON.stringify(result));
 });
 
