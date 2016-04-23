@@ -9,7 +9,7 @@ const timestamp = (url) => {
   const naturalFormat = 'MMMM D, YYYY';
 
   const unixToNatural = (uts) => moment.utc(uts, 'X', true).format(naturalFormat);
-  const naturalToUnix = (nts) => moment.utc(nts).format('X');
+  const naturalToUnix = (nts) => moment.utc(nts, naturalFormat, true).format('X');
 
   const rawDate = url.toString().replace(/%20/g, ' ');
 
@@ -33,7 +33,7 @@ const timestamp = (url) => {
 
 const server = http.createServer((req, res) => {
   const result = timestamp(req.url);
-  res.end(JSON.stringify(result));
+  return res.end(JSON.stringify(result));
 });
 
 const startServer = () => server.listen(port, (err) => {
@@ -42,3 +42,6 @@ const startServer = () => server.listen(port, (err) => {
 });
 
 module.exports.timestamp = timestamp;
+
+const args = process.argv.slice(0);
+if (args.length > 2 && args[2] === 'start') startServer();
