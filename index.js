@@ -33,6 +33,7 @@ const timestamp = (url) => {
 
 const server = http.createServer((req, res) => {
   const result = timestamp(req.url.slice(1));
+  res.setHeader('Content-Type', 'application/json');
   return res.end(JSON.stringify(result));
 });
 
