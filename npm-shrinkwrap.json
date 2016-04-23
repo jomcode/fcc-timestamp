@@ -1,0 +1,11 @@
+{
+  "name": "timestamp",
+  "version": "1.0.0",
+  "dependencies": {
+    "moment": {
+      "version": "2.13.0",
+      "from": "moment@latest",
+      "resolved": "https://registry.npmjs.org/moment/-/moment-2.13.0.tgz"
+    }
+  }
+}
