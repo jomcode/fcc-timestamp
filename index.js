@@ -1,3 +1,4 @@
+'use strict';
 const http = require('http');
 const moment = require('moment');
 
@@ -8,7 +9,7 @@ const timestamp = (url) => {
   const naturalFormat = 'MMMM D, YYYY';
 
   const unixToNatural = (uts) => moment.utc(uts, 'X', true).format(naturalFormat);
-  const naturalToUnix = (nts) => moment(nts).format('X');
+  const naturalToUnix = (nts) => moment.utc(nts).format('X');
 
   const rawDate = url.toString().replace(/%20/g, ' ');
 
@@ -20,6 +21,12 @@ const timestamp = (url) => {
   if (unixToNatural(rawDate).toLowerCase() !== 'invalid date') {
     const unix = Number(rawDate);
     const natural = unixToNatural(unix);
+    return { unix, natural };
+  }
+
+  if (naturalToUnix(rawDate).toString().toLowerCase() !== 'invalid date') {
+    const natural = rawDate.slice(0);
+    const unix = Number(naturalToUnix(natural));
     return { unix, natural };
   }
 };

@@ -28,5 +28,15 @@ describe('timestamp microservice', () => {
       expect(bar).to.have.property('unix', 1461381650);
       expect(bar).to.have.property('natural', 'April 23, 2016');
     });
+
+    it('returns proper `unix` and `natural` when passed valid natural date', () => {
+      const foo = timestamp('December%2015,%202015');
+      expect(foo).to.have.property('unix', 1450137600);
+      expect(foo).to.have.property('natural', 'December 15, 2015');
+
+      const bar = timestamp('December 15, 2015');
+      expect(bar).to.have.property('unix', 1450137600);
+      expect(bar).to.have.property('natural', 'December 15, 2015');
+    });
   });
 });
